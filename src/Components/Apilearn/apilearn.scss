@@ -1,0 +1,12 @@
+.apilearn_paper {
+  padding: 10px;
+  margin: 20px;
+  .apilearn_upvotes_div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    //align-items: flex-end;
+    padding: 10px;
+  }
+}
