@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import Home from "../Components/Home/Home.js";
 import Client from "../Components/Clients/Clients.js";
+import Animation from "../Components/Animation/Animation.js";
+import Apilearn from "../Components/Apilearn/Apilearn.js";
 import { withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -31,6 +33,16 @@ const SideMenus = [
   {
     name: "Client",
     link: "/client",
+    icon: <PeopleIcon fontSize="large" />,
+  },
+  {
+    name: "Animation",
+    link: "/animation",
+    icon: <PeopleIcon fontSize="large" />,
+  },
+  {
+    name: "Api Learning",
+    link: "/apilearn",
     icon: <PeopleIcon fontSize="large" />,
   },
 ];
@@ -97,6 +109,8 @@ class Sidebar extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/client" component={Client} />
+            <Route path="/animation" component={Animation} />
+            <Route path="/apilearn" component={Apilearn} />
             <Redirect to="/home" />
           </Switch>
         </main>

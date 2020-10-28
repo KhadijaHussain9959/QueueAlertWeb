@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { ClientContext, UserContext } from "../../store/store.js";
-import { SignUp, Login } from "../../Firebase/firebasefunctions.js";
+import { SignUp, Login, readData } from "../../Firebase/firebasefunctions.js";
 
 const Home = (props) => {
   //const [User, setUser] = useContext(UserContext);
@@ -16,6 +16,7 @@ const Home = (props) => {
   const [LoginPassword, setLoginPassword] = useState("");
 
   const [LoginMsg, setLoginMsg] = useState("");
+  const [SignUpMsg, setSignUpMsg] = useState("");
 
   const handleUserEmailChange = (e) => {
     setUserEmail(e.target.value);
@@ -23,10 +24,6 @@ const Home = (props) => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-  };
-
-  const handleSignup = () => {
-    SignUp(UserEmail, Password);
   };
 
   const handleLoginUserEmailChange = (e) => {
@@ -37,16 +34,36 @@ const Home = (props) => {
     setLoginPassword(e.target.value);
   };
 
+  const handlereadData = () => {
+    readData();
+  };
+  const handleSignup = async () => {
+    setUserEmail("");
+    setPassword("");
+
+    let res = await SignUp(UserEmail, Password);
+    console.log(res.status);
+    if (res.status == true) {
+      console.log("Sign up success");
+      setSignUpMsg("signup successfull");
+    } else {
+      console.log("signup fail");
+      setSignUpMsg(res.info.message);
+    }
+  };
+
   const handleLogin = async () => {
     let res = await Login(LoginUserEmail, LoginPassword);
     console.log(res.status);
     if (res.status == true) {
       console.log("then chala");
+      setLoginMsg("Login successfull");
     } else {
       console.log("catch chala");
       setLoginMsg(res.info.message);
     }
     console.log("Home k andar milra response", res);
+    props.history.push("/client");
   };
 
   return (
@@ -74,6 +91,8 @@ const Home = (props) => {
           Submit
         </Button>
       </div>
+
+      <div>{SignUpMsg}</div>
 
       <div>
         <h4>Login</h4>
@@ -105,6 +124,11 @@ const Home = (props) => {
         <h4>Clients Name: {Client ? Client.name : ""} </h4>
         <h4>Clients Company: {Client ? Client.company : ""} </h4>
         <h4>Clients Gender : {Client ? Client.gender : ""} </h4>
+      </div>
+      <div>
+        <Button variant="contained" color="primary" onClick={handlereadData}>
+          Show all data
+        </Button>
       </div>
     </div>
   );
