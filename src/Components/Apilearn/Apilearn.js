@@ -13,15 +13,15 @@ function Apilearn() {
     apicall();
   }, []);
 
-  //api call is asynchronous no wait .
+  //api call is asynchronous = no wait .
   const apicall = async () => {
     //await axios.get(link).then(success).catch(error);
     await axios
-      .get("https://cat-fact.herokuapp.com/facts")
+      .get("https://jsonplaceholder.typicode.com/users")
       .then((data) => {
-        console.log(data.data.all);
+        console.log(data.data);
         //save data in hook and check in inspect and component
-        setshowData(data.data.all);
+        // setshowData(data.data.all);
         // context set kra dena
       })
       .catch((error) => console.log(error));
